@@ -23,14 +23,15 @@ class Monomio
 	//! \name Atributos privados de la clase Monomio
 	private:
 
-		//COMPLETAR
+		double coeficiente; //!< coeficiente del monomio
+		int grado; //!< grado del monomio
 
 	//! \name Funciones o métodos públicos de la clase Monomio
 	public:
 
 	//! \name Constructores de la clase Monomio
 
-		inline Monomio(double coeficiente = 0.0, int grado = 0)
+	inline Monomio(double coeficiente = 0.0, int grado = 0)
 	{
 		// Se comprueba la precondición
 		#ifndef NDEBUG
@@ -49,17 +50,51 @@ class Monomio
 	}
 
 
+	inline Monomio(const Monomio &m)
+	{
+		this->setCoeficiente(m.getCoeficiente());
+		this->setGrado(m.getGrado());
+
+		#ifndef NDEBUG
+		assert(std::abs(this->getCoeficiente() - m.getCoeficiente()) < COTA_ERROR);
+		assert(m.getGrado() == this->getGrado());
+		#endif // NDEBUG
+	}
+
 
 	//! \name Observadores: funciones de consulta de la clase Monomio
 
-	// COMPLETAR
+	inline double getCoeficiente() const
+	{
+		return this->coeficiente;
+	}
+
+	inline int getGrado() const
+	{
+		return this->grado;
+	}
 
 
 
 	//! \name Funciones de modificación de la clase Monomio
 
-	// COMPLETAR
+	inline void setCoeficiente(double x)
+	{
+		this->coeficiente = x;
 
+		#ifndef NDEBUG
+		assert(std::abs(this->getCoeficiente() - x) < COTA_ERROR);
+		#endif // NDEBUG
+	}
+
+	inline void setGrado(int n)
+	{
+		this->grado = n;
+
+		#ifndef NDEBUG
+		assert(this->getGrado() == n);
+		#endif //NDEBUG
+	}
 
 
 	/////////////////////////////////////////////////
@@ -68,27 +103,66 @@ class Monomio
 
 	// Operadores de asignación
 
-		// COMPLETAR LOS COMENTARIOS DE DOXYGEN
+		//! \name Operador = con otro Monomio
 		Monomio & operator=(Monomio const &m);
 
-		// COMPLETAR LOS COMENTARIOS DE DOXYGEN
+		//! Operador = con numero real
 		Monomio & operator=(double const &x);
 
 
 	// Operadores aritméticos y asignación
 
-		// COMPLETAR LOS COMENTARIOS DE DOXYGEN
+		//! \name Operador += Monomio
 		Monomio & operator+=(Monomio const &m);
 
 
-		// COMPLETAR EL RESTO DE OPERADORES
+		//! \name Operador -= Monomio
+		Monomio & operator-=(Monomio const &m);
+		//! \name Operador *= Monomio
+		Monomio & operator*=(Monomio const &m);
+		//! \name Operador /= Monomio
+		Monomio & operator/=(Monomio const &m);
+		//! \name Operador *= Real
+		Monomio & operator*=(double const &x);
+		//! \name Operador /= Real
+		Monomio & operator/=(double const &x);
+
 
 
 	/////////////////////////////////////////////////////////////////////////////////////
 
 	//! \name Funciones lectura y escritura de la clase Monomio
 
-	// COMPLETAR
+		inline void leerMonomio()
+		{
+			int grado;
+			double coeficiente;
+
+			std::cout<<"Introduzca el grado del monomio"<<"\n";
+			std::cin>>grado;
+
+			std::cout<<"Introduzca el coeficiente del monomio"<<"\n";
+			std::cin>>coeficiente;
+
+			this->setGrado(grado);
+			this->setCoeficiente(coeficiente);
+
+			#ifndef NDEBUG
+			assert(this->getGrado() >= 0);
+			#endif //NDEBUG
+		}
+
+		void escribirMonomio()
+		{
+			if(this->getCoeficiente() == 1)
+			{
+				std::cout<<"coeficiente "<<this->getCoeficiente()<<"^"<<this->getGrado()<<"\n";
+			}
+			if(this->getCoeficiente() == -1)
+			{
+				std::cout<<"coeficiente -"<<this->getCoeficiente()<<"^"<<this->getGrado()<<"\n";
+			}
+		}
 
 
 	///////////////////////////////////////////////////////////////////////
