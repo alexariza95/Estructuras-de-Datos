@@ -1,4 +1,4 @@
-/*! 
+/*!
    \file  Monomio.cpp
    \brief Fichero que contiene el código de las funciones de la clase Monomio
 */
@@ -72,7 +72,7 @@ ed::Monomio & ed::Monomio::operator+=(ed::Monomio const &m)
 
 
 // COMPLETAR EL RESTO DE OPERADORES
-ed::Monomio & ed::Monomio::operator-=(ed::Monomio const &x)
+ed::Monomio & ed::Monomio::operator-=(ed::Monomio const &m)
 {
 	//Se comprueba la precondición
 	#ifndef NDEBUG
@@ -93,7 +93,7 @@ ed::Monomio & ed::Monomio::operator-=(ed::Monomio const &x)
 }
 
 
-ed::Monomio & ed::Monomio::operator*=(ed::Monomio const &x)
+ed::Monomio & ed::Monomio::operator*=(ed::Monomio const &m)
 {
 	double lastCoef = this->getCoeficiente();
 	int lastGrado = this->getGrado();
@@ -110,7 +110,7 @@ ed::Monomio & ed::Monomio::operator*=(ed::Monomio const &x)
 	return *this;
 }
 
-ed::Monomio & ed::Monomio::operator/=(ed::Monomio const &x)
+ed::Monomio & ed::Monomio::operator/=(ed::Monomio const &m)
 {
 	double lastCoef = this->getCoeficiente();
 	int lastGrado = this->getGrado();
@@ -119,7 +119,7 @@ ed::Monomio & ed::Monomio::operator/=(ed::Monomio const &x)
 	this->setGrado(this->getGrado() - m.getGrado());
 
 	#ifndef NDEBUG
-	assert(this->getCoeficiente() == coef / m.getCoeficiente());
+	assert(this->getCoeficiente() == lastCoef / m.getCoeficiente());
 	assert(this->getGrado() == lastGrado - m.getGrado());
 	#endif //NDEBUG
 
@@ -129,8 +129,7 @@ ed::Monomio & ed::Monomio::operator/=(ed::Monomio const &x)
 
 
 
-ed::Monomio & ed::Monomio::operator*=(double const &x);
-
+ed::Monomio & ed::Monomio::operator*=(double const &x)
 {
 	double lastCoef = this->getCoeficiente();
 	int lastGrado = this->getGrado();
@@ -138,7 +137,7 @@ ed::Monomio & ed::Monomio::operator*=(double const &x);
 	this->setCoeficiente(this->getCoeficiente() * x);
 
 	#ifndef NDEBUG
-	assert(this->getCoeficiente() == lastCoef * x);
+	assert(this->getCoeficiente() == (lastCoef * x));
 	assert(this->getGrado() == lastGrado);
 	#endif //NDEBUG
 
@@ -156,9 +155,9 @@ ed::Monomio & ed::Monomio::operator/=(double const &x)
 	assert(x != 0.0);
 	#endif //NDEBUG
 
-	this->setCoeficiente(this->getCoeficiente() / m.getCoeficiente());
+	this->setCoeficiente(this->getCoeficiente() / x);
 	#ifndef NDEBUG
-	assert(this->getCoeficiente() == coef / m.getCoeficiente());
+	assert(this->getCoeficiente() == (lastCoef / x));
 	assert(this->getGrado() == lastGrado);
 	#endif //NDEBUG
 
@@ -166,18 +165,22 @@ ed::Monomio & ed::Monomio::operator/=(double const &x)
 	return *this;
 }
 
-
-ed::Monomio
 ///////////////////////////////////////////////////////////////////////
 
 // Funciones lectura y escritura de la clase Monomio
 
-// COMPLETAR
+// HECHO EN .HPP
 
 
 ///////////////////////////////////////////////////////////////////////
 
 // Funciones auxiliares de la clase Monomio
 
-// COMPLETAR
-
+double ed::Monomio::calcularValor(double const &x)
+{
+	double valor , valor1;
+	valor1 = std::pow(x, this->getGrado());
+	valor = valor1 * this->getCoeficiente();
+	//Devuelve el objeto 'valor'
+	return valor;
+}

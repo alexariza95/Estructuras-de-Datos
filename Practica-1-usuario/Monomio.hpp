@@ -1,4 +1,4 @@
-/*! 
+/*!
 	\file Monomio.hpp
 	\brief Definición de la clase Monomio
 */
@@ -17,7 +17,7 @@
 // Se incluye la clase Monomio dentro del espacio de nombre de la asigantura: ed
 namespace ed
 {
-//!  Definición de la clase Monomio:  \f$ coeficiente \hspace{1ex} X^{grado} \f$ 
+//!  Definición de la clase Monomio:  \f$ coeficiente \hspace{1ex} X^{grado} \f$
 class Monomio
 {
 	//! \name Atributos privados de la clase Monomio
@@ -152,16 +152,26 @@ class Monomio
 			#endif //NDEBUG
 		}
 
-		void escribirMonomio()
+		inline void escribirMonomio()
 		{
 			if(this->getCoeficiente() == 1)
 			{
-				std::cout<<"coeficiente "<<this->getCoeficiente()<<"^"<<this->getGrado()<<"\n";
+				std::cout<<"X^"<<this->getGrado()<<"\n";
 			}
 			if(this->getCoeficiente() == -1)
 			{
-				std::cout<<"coeficiente -"<<this->getCoeficiente()<<"^"<<this->getGrado()<<"\n";
+				std::cout<<"-X"<<"^"<<this->getGrado()<<"\n";
 			}
+			if(this->getGrado() == 0)
+			{
+				std::cout<<this->getCoeficiente()<<"\n";
+			}
+			if(this->getGrado() == 1)
+			{
+				std::cout<<"X\n";
+			}
+
+			std::cout << this->getCoeficiente() << " X^ " << this->getGrado() << '\n';
 		}
 
 
@@ -169,7 +179,8 @@ class Monomio
 
 	//! \name Funciones auxiliares de la clase Monomio
 
-	// COMPLETAR
+	// Funcion calcularValor
+	double calcularValor(double const &x); 
 
 
 
