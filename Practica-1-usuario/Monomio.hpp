@@ -305,24 +305,41 @@ class Monomio
 		*/
 		inline void escribirMonomio()
 		{
-			if(this->getCoeficiente() == 1)
+			if(this->getCoeficiente() > 0)
 			{
-				std::cout<<"X^"<<this->getGrado()<<"\n";
-			}
-			if(this->getCoeficiente() == -1)
-			{
-				std::cout<<"-X"<<"^"<<this->getGrado()<<"\n";
-			}
-			if(this->getGrado() == 0)
-			{
-				std::cout<<this->getCoeficiente()<<"\n";
-			}
-			if(this->getGrado() == 1)
-			{
-				std::cout<<"X\n";
-			}
+				switch (this->getGrado())
+				{
+					case 0:
+						std::cout<<this->getCoeficiente();
+					break;
 
-			std::cout << this->getCoeficiente() << " X^ " << this->getGrado() << '\n';
+					case 1:
+						std::cout<<this->getCoeficiente()<<"x";
+					break;
+
+					default:
+						std::cout<<this->getCoeficiente()<<"x^"<<this->getGrado();
+				}
+			}else {
+				if(this->getCoeficiente() < 0)
+				{
+					switch (this->getGrado())
+					{
+						case 0:
+							std::cout<<"-"<<this->getCoeficiente();
+						break;
+
+						case 1:
+							std::cout<<"-"<<this->getCoeficiente()<<"x";
+						break;
+
+						default:
+							std::cout<<"-"<<this->getCoeficiente()<<"x^"<<this->getGrado();
+					}
+				}else {
+					std::cout<<"Error: El coeficiente es 0\n";
+				}
+			}
 		}
 
 

@@ -34,6 +34,14 @@ namespace ed
 */
 	bool operator==(ed::Monomio const & m1, ed::Monomio const & m2);
 	/*!
+	\fn					bool operator==(ed::Monomio const &m, double const &x)
+	\brief     Operador que comprueba que un monomio sea igual que un numero real
+	\pre
+	\attention Devuelve 'true' si 'x' es igual que el coeficiente de 'm'
+	\post      El coeficiente del monomio es igual que x y su grado es 0
+*/
+	bool operator==(ed::Monomio const &m, double const &x);
+	/*!
 	\fn					bool operator==(double const &x, ed::Monomio const &m)
 	\brief     Operador que comprueba que un monomio sea igual que un numero real
 	\attention Devuelve 'true' si el coeficiente de 'm' es igual que 'x'
@@ -41,14 +49,7 @@ namespace ed
 	\post      El coeficiente del monomio es igual que x y su grado es 0
 */
 	bool operator==(double const &x, ed::Monomio const &m);
-	/*!
-	\fn					bool operator==(ed::Monomio const &m, double const &x)
-	\brief     Operador que comprueba que un monomio sea igual que un numero real
-	\pre
-	\attention Devuelve 'true' si 'x' es igual que el coeficiente de 'm'
-	\post      El coeficiente del monomio es igual que x y su grado es 0
-*/
-	bool operator==(ed::Monomio const &m, double const x);
+
 
 
 
@@ -184,21 +185,23 @@ namespace ed
 	//! \name Sobrecarga de los operadores de entrada y salida
 
 	/*!
-	\fn				 istream &operator>> (istream &stream, ed::Monomio &m)
-	\brief     Lee desde el flujo de entrada los atributos de un monomio separados por espacios
-	\attention Devuelve un stream con dichos atributos
-	\pre
-	\post
-*/
+		\brief  Sobrecarga del operador de flujo de entrada o lectura ">>"
+		\n Lee el coeficiente y el grado de un monomio separados por espacios
+		\param stream: flujo de entrada
+		\param m: objeto de tipo Monomio pasado como referencia constante
+		\pre Ninguna
+		\post Ninguna
+	*/
 	 istream &operator>>(istream &stream, ed::Monomio &m);
 
 	 /*!
- 	\fn				 ostream &operator<< (ostream &stream, ed::Monomio &m)
- 	\brief     Escribe en el flujo de salida los atributos del monomio separados por espacios
- 	\attention Devuelve un stream con dichos atributos
- 	\pre
- 	\post
- */
+ 	 \brief  Sobrecarga del operador de flujo de salida o escritura "<<"
+ 	 \n Escribe por pantalla el coeficiente y el grado de un Monomio separados por espacios
+  	 \param  stream: flujo de salida
+ 	 \param m: objeto de tipo Monomio pasado como referencia constante
+ 	 \pre    Ninguna
+ 	 \post   Ninguna
+ 	 */
 	 ostream &operator<<(ostream &stream, ed::Monomio const &m);
 
 }  // Fin de namespace ed.
