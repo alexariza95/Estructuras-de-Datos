@@ -359,13 +359,6 @@ void ed::testMonomio()
 
 void ed::operadoresExternosMonomios()
 {
-	// QUITAR ESTAS SENTENCIAS Y EL COMENTARIO DE BLOQUE
-	std::cout << BIGREEN;
-	std::cout << "operadoresExternosMonomios()" << std::endl;
-	std::cout << RESET;
-	std::cout << "Quitar el comentario de bloque cuando se haya codificado la clase Monomio y los operadores externos de dicha clase" << std::endl << std::endl;
-
-
 
 	double x;
 

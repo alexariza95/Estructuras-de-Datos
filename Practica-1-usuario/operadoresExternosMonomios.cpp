@@ -7,7 +7,6 @@
 //  Ficheros de cabecera
 #include <iostream>
 #include <cassert>
-#include <cstdlib>
 #include "operadoresExternosMonomios.hpp"
 
 //  Se incluyen los operadores sobrecargados dentro del espacio de nombres ed
@@ -105,27 +104,33 @@ namespace ed
 
 	ed::Monomio & operator+(ed::Monomio const & m)
 	{
-		// Se crea un nuevo objeto
-		ed::Monomio *nuevo = new ed::Monomio();
+				// Se crea un nuevo objeto
+				ed::Monomio *nuevo = new ed::Monomio();
 
-		#ifndef NDEBUG
-		assert(std::abs(nuevo->getCoeficiente() - m.getCoeficiente()) < COTA_ERROR && m.getGrado() == nuevo->getGrado());
-		#endif //NDEBUG
+				nuevo->setCoeficiente(m.getCoeficiente());
+				nuevo->setGrado(m.getGrado());
 
-		// Se devuelve el resultado
+				#ifndef NDEBUG
+					assert( std::abs(nuevo->getCoeficiente() - m.getCoeficiente()) < COTA_ERROR );
+					assert( nuevo->getGrado() == m.getGrado() );
+				#endif
+				// Se devuelve el resultado
 		return *nuevo;
 	}
 
 	ed::Monomio & operator-(ed::Monomio const &m)
 	{
-		ed::Monomio *nuevo = new ed::Monomio();
+			ed::Monomio *nuevo = new ed::Monomio();
 
-		nuevo->setCoeficiente(-m.getCoeficiente());
-		#ifndef NDEBUG
-		assert(std::abs(m.getCoeficiente() + nuevo->getCoeficiente()) < COTA_ERROR  && m.getGrado() == nuevo->getGrado());
-		#endif //NDEBUG
+			nuevo->setCoeficiente(-m.getCoeficiente());
+			nuevo->setGrado(m.getGrado());
 
-		return *nuevo;
+			#ifndef NDEBUG
+				assert( std::abs(m.getCoeficiente() + nuevo->getCoeficiente()) < COTA_ERROR );
+				assert( nuevo->getGrado() == m.getGrado() );
+			#endif
+
+	return *nuevo;;
 	}
 
 	////////////////////////////////////////////////////////////
