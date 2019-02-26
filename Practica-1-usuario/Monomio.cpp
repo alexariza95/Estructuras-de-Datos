@@ -46,11 +46,10 @@ ed::Monomio & ed::Monomio::operator=(double const &x)
 
 // Operadores aritméticos y asignación
 
-// COMPLETAR
 
 ed::Monomio & ed::Monomio::operator+=(ed::Monomio const &m)
 {
-	//Se comprueba la precondicións
+	//Se comprueba la precondición
 	#ifndef NDEBUG
 	assert(this->getGrado() == m.getGrado());
 	int lastGrado = this->getGrado();
@@ -60,7 +59,7 @@ ed::Monomio & ed::Monomio::operator+=(ed::Monomio const &m)
 	this->setCoeficiente(this->getCoeficiente() + m.getCoeficiente());
 
 	#ifndef NDEBUG
-	assert(this->getCoeficiente() == coef + m.getCoeficiente());
+	assert(std::abs(this->getCoeficiente() - (coef + m.getCoeficiente())) < COTA_ERROR );
 	assert(this->getGrado() == lastGrado);
 	#endif //NDEBUG
 
@@ -70,7 +69,6 @@ ed::Monomio & ed::Monomio::operator+=(ed::Monomio const &m)
 
 
 
-// COMPLETAR EL RESTO DE OPERADORES
 ed::Monomio & ed::Monomio::operator-=(ed::Monomio const &m)
 {
 	//Se comprueba la precondición
@@ -83,7 +81,7 @@ ed::Monomio & ed::Monomio::operator-=(ed::Monomio const &m)
 	this->setCoeficiente(this->getCoeficiente() - m.getCoeficiente());
 
 	#ifndef NDEBUG
-	assert(this->getCoeficiente() == coef - m.getCoeficiente());
+	assert(std::abs(this->getCoeficiente() - (coef - m.getCoeficiente())) < COTA_ERROR);
 	assert(this->getGrado() == lastGrado);
 	#endif //NDEBUG
 
@@ -101,7 +99,7 @@ ed::Monomio & ed::Monomio::operator*=(ed::Monomio const &m)
 	this->setGrado(this->getGrado() + m.getGrado());
 
 	#ifndef NDEBUG
-	assert(this->getCoeficiente() == lastCoef * m.getCoeficiente());
+	assert(std::abs(this->getCoeficiente() - (lastCoef * m.getCoeficiente())) < COTA_ERROR);
 	assert(this->getGrado() == lastGrado + m.getGrado());
 	#endif //NDEBUG
 
@@ -118,7 +116,7 @@ ed::Monomio & ed::Monomio::operator/=(ed::Monomio const &m)
 	this->setGrado(this->getGrado() - m.getGrado());
 
 	#ifndef NDEBUG
-	assert(this->getCoeficiente() == lastCoef / m.getCoeficiente());
+	assert(std::abs(this->getCoeficiente() - (lastCoef / m.getCoeficiente())) < COTA_ERROR);
 	assert(this->getGrado() == lastGrado - m.getGrado());
 	#endif //NDEBUG
 
@@ -136,7 +134,7 @@ ed::Monomio & ed::Monomio::operator*=(double const &x)
 	this->setCoeficiente(this->getCoeficiente() * x);
 
 	#ifndef NDEBUG
-	assert(this->getCoeficiente() == (lastCoef * x));
+	assert(std::abs(this->getCoeficiente() - (lastCoef * x)) < COTA_ERROR);
 	assert(this->getGrado() == lastGrado);
 	#endif //NDEBUG
 
@@ -156,7 +154,7 @@ ed::Monomio & ed::Monomio::operator/=(double const &x)
 
 	this->setCoeficiente(this->getCoeficiente() / x);
 	#ifndef NDEBUG
-	assert(this->getCoeficiente() == (lastCoef / x));
+	assert(std::abs(this->getCoeficiente() - (lastCoef / x)) < COTA_ERROR);
 	assert(this->getGrado() == lastGrado);
 	#endif //NDEBUG
 
@@ -174,6 +172,26 @@ ed::Monomio & ed::Monomio::operator/=(double const &x)
 ///////////////////////////////////////////////////////////////////////
 
 // Funciones auxiliares de la clase Monomio
+
+ed::Monomio & ed::Monomio::operator^=(int pot)
+{
+	#ifndef NDEBUG
+		assert( pot >= 0 );
+	#endif
+
+	int valorG = this->getGrado();
+	double valorC = this->getCoeficiente();
+
+	this->setGrado(valorG*pot);
+	this->setCoeficiente(std::pow(valorC,pot));
+
+	#ifndef NDEBUG
+		assert( this->getGrado() == (valorG * pot) );
+		assert( std::abs(this->getCoeficiente() - std::pow(valorC,pot)) < COTA_ERROR );
+	#endif
+
+	return *this;
+}
 
 double ed::Monomio::calcularValor(double const &x)
 {
