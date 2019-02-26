@@ -7,6 +7,7 @@
 //  Ficheros de cabecera
 #include <iostream>
 #include <cassert>
+#include <cstdlib>
 #include "operadoresExternosMonomios.hpp"
 
 //  Se incluyen los operadores sobrecargados dentro del espacio de nombres ed
