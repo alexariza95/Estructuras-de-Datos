@@ -1,8 +1,8 @@
 /*!
   \file   funcionesAuxiliares.cpp
   \brief  Código de las funciones auxiliares para el programa principal de la práctica 1
-  \author
-  \date
+  \author Alejandro Ariza
+  \date 25-02-19
 */
 
 // Para los flujos de entrada y salida
@@ -325,13 +325,13 @@ void ed::testMonomio()
 void ed::operadoresExternosMonomios()
 {
 	// QUITAR ESTAS SENTENCIAS Y EL COMENTARIO DE BLOQUE
-	std::cout << BIGREEN;
-	std::cout << "operadoresExternosMonomios()" << std::endl;
-	std::cout << RESET;
-	std::cout << "Quitar el comentario de bloque cuando se haya codificado la clase Monomio y los operadores externos de dicha clase" << std::endl << std::endl;
+	//std::cout << BIGREEN;
+//	std::cout << "operadoresExternosMonomios()" << std::endl;
+//	std::cout << RESET;
+//	std::cout << "Quitar el comentario de bloque cuando se haya codificado la clase Monomio y los operadores externos de dicha clase" << std::endl << std::endl;
 
 
-/*
+
 	double x;
 
 	// Constructor por defecto
@@ -562,7 +562,7 @@ void ed::operadoresExternosMonomios()
 
 
 	std::cout << std::endl;
-*/
+
 
 	return;
 }

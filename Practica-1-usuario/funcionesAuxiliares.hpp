@@ -1,8 +1,8 @@
 /*!
   \file   funcionesAuxiliares.hpp
   \brief  Funciones auxiliares para el programa principal de la práctica 1
-  \author 
-  \date  
+  \author Alejandro Ariza
+  \date  25-02-19
 */
 
 
@@ -11,8 +11,8 @@
 
 namespace ed
 {
-	/*! 
-		\brief   Muestra el menú del programa principal 
+	/*!
+		\brief   Muestra el menú del programa principal
 		\return  Devuelve el número de opción elegido
 	*/
 	int menu();
@@ -28,4 +28,3 @@ namespace ed
 
 // Fin de _FUNCIONESAUXILIARES_HPP_
 #endif
-

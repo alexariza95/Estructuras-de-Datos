@@ -1,6 +1,8 @@
 /*!
 	\file Monomio.hpp
 	\brief Definición de la clase Monomio
+	\author Alejandro Ariza
+	\date  25-02-19
 */
 
 #ifndef _MONOMIO_HPP_
@@ -180,7 +182,7 @@ class Monomio
 	//! \name Funciones auxiliares de la clase Monomio
 
 	// Funcion calcularValor
-	double calcularValor(double const &x); 
+	double calcularValor(double const &x);
 
 
 

@@ -8,10 +8,9 @@
 #include <iostream>
 
 #include "Monomio.hpp"
-
+#define COTA_ERROR 1.0e-6
 // Operadores de asignación
 
-// COMPLETAR
 
 ed::Monomio & ed::Monomio::operator=(ed::Monomio const &m)
 {

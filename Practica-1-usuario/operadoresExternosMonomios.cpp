@@ -6,9 +6,8 @@
 
 //  Ficheros de cabecera
 #include <iostream>
-
+#include <cassert>
 #include "operadoresExternosMonomios.hpp"
-
 
 //  Se incluyen los operadores sobrecargados dentro del espacio de nombres ed
 namespace ed
@@ -19,42 +18,40 @@ namespace ed
 	bool operator==(ed::Monomio const & m1, ed::Monomio const & m2)
 	{
 		bool aserto = false;
-		if(m1.getCoeficiente() == m2.getCoeficiente() && m1.getGrado() == m2.getGrado())
+		if((m1.getGrado() == m2.getGrado()) && (std::abs(m1.getCoeficiente() - m2.getCoeficiente()) < COTA_ERROR))
 		{
 			aserto = true;
 		}
-		else{
-			aserto = false;
-		}
-		// MODIFICAR: SE DEVUELVE UN VALOR ARBITRARIO PARA NO GENERAR AVISOS AL COMPILAR
+		#ifndef NDEBUG
+			assert( aserto == ((m1.getGrado() == m2.getGrado()) && (std::abs(m1.getCoeficiente() - m2.getCoeficiente()) < COTA_ERROR) && (aserto == true)));
+		#endif
 		return aserto;
 	}
 
 	bool operator==(ed::Monomio const &m, double const &x)
 	{
 		bool aserto = false;
-		if(m.getCoeficiente() == x && m.getGrado() == 0)
+		if(m.getGrado() == 0 && std::abs(m.getCoeficiente() - x) < COTA_ERROR)
 		{
 			aserto = true;
 		}
-		else
-		{
-			aserto = false;
-		}
+		#ifndef NDEBUG
+			assert( aserto == ((m.getGrado() == 0) && (std::abs(m.getCoeficiente() - x) < COTA_ERROR) && (aserto == true)) );
+		#endif
+
 		return aserto;
 	}
 
 	bool operator==(double const &x, ed::Monomio const &m)
 	{
 		bool aserto = false;
-		if(x == m.getCoeficiente() && m.getGrado() == 0)
+		if(m.getGrado() == 0 && (std::abs(m.getCoeficiente() - x) < COTA_ERROR))
 		{
 			aserto = true;
 		}
-		else
-		{
-			aserto = false;
-		}
+		#ifndef NDEBUG
+					assert( aserto == ((m.getGrado() == 0) && (std::abs(m.getCoeficiente() - x) < COTA_ERROR) && (aserto == true)) );
+		#endif
 		return aserto;
 	}
 
@@ -64,14 +61,13 @@ namespace ed
 	bool operator!=(ed::Monomio const & m1, ed::Monomio const & m2)
 	{
 		bool aserto = false;
-		if(m1.getCoeficiente() != m2.getCoeficiente() && m1.getGrado() != m2.getGrado())
+		if((m1.getGrado() != m2.getGrado()) || (std::abs(m1.getCoeficiente() - m2.getCoeficiente()) > COTA_ERROR))
 		{
 			aserto = true;
 		}
-		else
-		{
-			aserto = false;
-		}
+		#ifndef NDEBUG
+					assert( aserto == ((m1.getGrado() != m2.getGrado()) || (std::abs(m1.getCoeficiente() - m2.getCoeficiente()) > COTA_ERROR) || (aserto == true)) );
+		#endif
 		// MODIFICAR: SE DEVUELVE UN VALOR ARBITRARIO PARA NO GENERAR AVISOS AL COMPILAR
 		return aserto;
 	}
@@ -79,27 +75,26 @@ namespace ed
 	bool operator!=(double const &x, ed::Monomio const &m)
 	{
 		bool aserto = false;
-		if(m.getCoeficiente() != x && m.getGrado() != 0)
+		if((m.getGrado() != 0) || (std::abs(m.getCoeficiente() - x) > COTA_ERROR))
 		{
 			aserto = true;
 		}
-		else{
-			aserto = false;
-		}
+		#ifndef NDEBUG
+					assert( aserto == ((m.getGrado() != 0) || (std::abs(m.getCoeficiente() - x) > COTA_ERROR) || (aserto == true)) );
+		#endif
 		return aserto;
 	}
 
 	bool operator!=(ed::Monomio const &m, double const &x)
 	{
 		bool aserto = false;
-		if(x != m.getCoeficiente() && m.getGrado() != 0)
+		if((m.getGrado() != 0) || (std::abs(m.getCoeficiente() - x) > COTA_ERROR))
 		{
 			aserto = true;
 		}
-		else
-		{
-			aserto = false;
-		}
+		#ifndef NDEBUG
+					assert( aserto == ((m.getGrado() != 0) || (std::abs(m.getCoeficiente() - x) > COTA_ERROR) || (aserto == true)) );
+		#endif
 		return aserto;
 	}
 
@@ -113,7 +108,7 @@ namespace ed
 		ed::Monomio *nuevo = new ed::Monomio();
 
 		#ifndef NDEBUG
-		assert(m.getCoeficiente() == nuevo->getCoeficiente() && m.getGrado() == nuevo->getGrado());
+		assert(std::abs(nuevo->getCoeficiente() - m.getCoeficiente()) < COTA_ERROR && m.getGrado() == nuevo->getGrado());
 		#endif //NDEBUG
 
 		// Se devuelve el resultado
@@ -126,7 +121,7 @@ namespace ed
 
 		nuevo->setCoeficiente(-m.getCoeficiente());
 		#ifndef NDEBUG
-		assert(m.getCoeficiente() == -(nuevo->getCoeficiente()) && m.getGrado() == nuevo->getGrado());
+		assert(std::abs(m.getCoeficiente() + nuevo->getCoeficiente()) < COTA_ERROR  && m.getGrado() == nuevo->getGrado());
 		#endif //NDEBUG
 
 		return *nuevo;
@@ -153,7 +148,8 @@ namespace ed
 		nuevo->setCoeficiente(coef);
 
 		#ifndef NDEBUG
-		assert(nuevo->getGrado() == m1.getGrado() && nuevo->getGrado() == m2.getGrado() && nuevo->getCoeficiente() == coef);
+		assert(nuevo->getGrado() == m1.getGrado() && nuevo->getGrado() == m2.getGrado());
+		assert(std::abs(nuevo->getCoeficiente() - (m1.getCoeficiente() + m2.getCoeficiente())) < COTA_ERROR);
 		#endif //NDEBUG
 
 		// Se devuelve el resultado
@@ -178,7 +174,8 @@ namespace ed
 		nuevo->setCoeficiente(coef);
 
 		#ifndef NDEBUG
-		assert(nuevo->getGrado() == m1.getGrado() && nuevo->getGrado() == m2.getGrado() && nuevo->getCoeficiente() == coef);
+		assert(nuevo->getGrado() == m1.getGrado() && nuevo->getGrado() == m2.getGrado());
+		assert(std::abs(nuevo->getCoeficiente() - (m1.getCoeficiente() - m2.getCoeficiente())) < COTA_ERROR);
 		#endif //NDEBUG
 
 		// Se devuelve el resultado
@@ -201,7 +198,8 @@ namespace ed
 		nuevo->setCoeficiente(coef);
 
 		#ifndef NDEBUG
-		assert(nuevo->getGrado() == m1.getGrado()+m2.getGrado() && nuevo->getCoeficiente() == coef);
+		assert(nuevo->getGrado() == m1.getGrado()+m2.getGrado());
+		assert(std::abs(nuevo->getCoeficiente() - (m1.getCoeficiente() * m2.getCoeficiente())) < COTA_ERROR);
 		#endif //NDEBUG
 
 		// Se devuelve el resultado
@@ -213,7 +211,7 @@ namespace ed
 		// Se crea un nuevo objeto
 		ed::Monomio *nuevo = new ed::Monomio();
 		int grade;
-		grade = m.getGrado():
+		grade = m.getGrado();
 
 		double coef;
 		coef = m.getCoeficiente() * x;
@@ -222,7 +220,29 @@ namespace ed
 		nuevo->setCoeficiente(coef);
 
 		#ifndef NDEBUG
-		assert(nuevo->getGrado() == m.getGrado() && nuevo->getCoeficiente() == coef);
+		assert(nuevo->getGrado() == m.getGrado());
+		assert(std::abs(nuevo->getCoeficiente() - (m.getCoeficiente() * x)) < COTA_ERROR );
+		#endif //NDEBUG
+
+		// Se devuelve el resultado
+		return *nuevo;
+	}
+
+	ed::Monomio & operator* (double const &x ,ed::Monomio const &m)
+	{
+		ed::Monomio *nuevo = new ed::Monomio();
+		int grade;
+		grade = m.getGrado();
+
+		double coef;
+		coef = m.getCoeficiente() * x;
+
+		nuevo->setGrado(grade);
+		nuevo->setCoeficiente(coef);
+
+		#ifndef NDEBUG
+		assert(nuevo->getGrado() == m.getGrado());
+		assert(std::abs(nuevo->getCoeficiente() - (x * m.getCoeficiente())) < COTA_ERROR );
 		#endif //NDEBUG
 
 		// Se devuelve el resultado
@@ -231,18 +251,94 @@ namespace ed
 
 	////////////
 	// División
+		ed::Monomio & operator/ (ed::Monomio const &m1, ed::Monomio const &m2)
+		{
+			ed::Monomio *nuevo = new ed::Monomio();
+			#ifndef NDEBUG
+			assert(m1.getGrado() >= m2.getGrado() && m2.getCoeficiente() != 0.0);
+			#endif //NDEBUG
+			int grade;
+			grade = m1.getGrado() - m2.getGrado();
 
-	// COMPLETAR
+			double coef;
+			coef = m1.getCoeficiente() / m2.getCoeficiente();
 
+			nuevo->setGrado(grade);
+			nuevo->setCoeficiente(coef);
 
+			#ifndef NDEBUG
+			assert(nuevo->getGrado() == m1.getGrado()-m2.getGrado());
+			assert(std::abs(nuevo->getCoeficiente() - (m1.getCoeficiente() / m2.getCoeficiente())) < COTA_ERROR);
+			#endif //NDEBUG
+
+			// Se devuelve el resultado
+			return *nuevo;
+		}
+
+		ed::Monomio & operator/ (ed::Monomio const &m, double const &x)
+		{
+			// Se crea un nuevo objeto monomio
+			ed::Monomio *nuevo = new ed::Monomio();
+			#ifndef NDEBUG
+			assert(x != 0.0);
+			#endif //NDEBUG
+			int grade;
+			grade = m.getGrado();
+
+			double coef;
+			coef = m.getCoeficiente() / x;
+
+			nuevo->setGrado(grade);
+			nuevo->setCoeficiente(coef);
+
+			#ifndef NDEBUG
+			assert(nuevo->getGrado() == m.getGrado());
+			assert(std::abs(nuevo->getCoeficiente() - (m.getCoeficiente()/x)) < COTA_ERROR);
+			#endif //NDEBUG
+
+			// Se devuelve el resultado
+			return *nuevo;
+		}
+
+		ed::Monomio & operator/ (double const &x, ed::Monomio const &m)
+		{
+			ed::Monomio *nuevo = new ed::Monomio();
+			#ifndef NDEBUG
+			assert(m.getGrado() == 0 && m.getCoeficiente() != 0.0);
+			#endif //NDEBUG
+			int grade;
+			grade = m.getGrado();
+
+			double coef;
+			coef = x / m.getCoeficiente();
+
+			nuevo->setGrado(grade);
+			nuevo->setCoeficiente(coef);
+
+			#ifndef NDEBUG
+			assert(nuevo->getGrado() == 0 && std::abs(nuevo->getCoeficiente() - (x / m.getCoeficiente())) < COTA_ERROR);
+			#endif //NDEBUG
+
+			// Se devuelve el resultado
+			return *nuevo;
+		}
 	/////////////////////////////////////////////////////////////////////////////
 
 	//  Sobrecarga del operador de entrada
-	istream &operator>>(istream &stream, ed::Monomio &m)
+  istream &operator>>(istream &stream, ed::Monomio &m)
 	{
-		// COMPLETAR
-
-   		// Se devuelve el flujo de entrada
+		double x;
+		int grado;
+		stream >> x;
+		stream >> grado;
+		if( grado < 0 )
+		{
+			std::cout<<"Se debe introducir un grado mayor o igual a 0\n";
+			exit (-1);
+		}
+		m.setCoeficiente(x);
+		m.setGrado(grado);
+   	// Se devuelve el flujo de entrada
 		return stream;
 	}
 
@@ -250,8 +346,7 @@ namespace ed
 	//  Sobrecarga del operador de salida
 	ostream &operator<<(ostream &stream, ed::Monomio const &m)
 	{
-		// COMPLETAR
-
+		stream << m.getCoeficiente() << " " << m.getGrado();
 		// Se devuelve el flujo de salida
 		return stream;
 	}
