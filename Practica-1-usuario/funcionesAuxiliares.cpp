@@ -1,10 +1,3 @@
-/*!
-  \file   funcionesAuxiliares.cpp
-  \brief  Código de las funciones auxiliares para el programa principal de la práctica 1
-  \author Alejandro Ariza
-  \date 25-02-19
-*/
-
 // Para los flujos de entrada y salida
 #include <iostream>
 #include <string>
@@ -69,6 +62,7 @@ void ed::testMonomio()
 
 
 	double x;
+  int g;
 
 	// Constructor sin argumentos
 	ed::Monomio m1;
@@ -312,6 +306,47 @@ void ed::testMonomio()
 	std::cout << std::endl;
 	std::cout<< "m3(" << x << ") = " << m3.calcularValor(x) << std::endl << std::endl;
 
+  //FUNCION AÑADIDA - POTENCIA
+  std::cout << BIGREEN;
+  std::cout<<"Calculo de la potencia de un monomio\n";
+  std::cout<<RESET;
+  std::cout<<"Introduce el grado:";
+  std::cin>>g;
+  std::cout<<"\n";
+  std::cout<< "m1 = ";
+  m1.escribirMonomio();
+  std::cout<<"\n";
+  std::cout<<"(";
+  m1.escribirMonomio();
+  std::cout<<")^"<<g<<" = ";
+  m1^=g;
+  m1.escribirMonomio();
+  std::cout<<"\n";
+  std::cout<<"\n";
+  std::cout<< "m2 = ";
+  m2.escribirMonomio();
+  std::cout<<"\n";
+  std::cout<<"(";
+  m2.escribirMonomio();
+  std::cout<<")^"<<g<<" = ";
+  m2^=g;
+  m2.escribirMonomio();
+  std::cout<<"\n";
+  std::cout<<"\n";
+  std::cout<< "m3 = ";
+  m3.escribirMonomio();
+  std::cout<<"\n";
+    std::cout<<"(";
+  m3.escribirMonomio();
+  std::cout<<")^"<<g<<" = ";
+  m3^=g;
+  m3.escribirMonomio();
+  std::cout<<"\n";
+
+  //
+  // Pausa
+  std::cin.ignore();
+
 
 	// Fin
 	return;
@@ -325,10 +360,10 @@ void ed::testMonomio()
 void ed::operadoresExternosMonomios()
 {
 	// QUITAR ESTAS SENTENCIAS Y EL COMENTARIO DE BLOQUE
-	//std::cout << BIGREEN;
-//	std::cout << "operadoresExternosMonomios()" << std::endl;
-//	std::cout << RESET;
-//	std::cout << "Quitar el comentario de bloque cuando se haya codificado la clase Monomio y los operadores externos de dicha clase" << std::endl << std::endl;
+	std::cout << BIGREEN;
+	std::cout << "operadoresExternosMonomios()" << std::endl;
+	std::cout << RESET;
+	std::cout << "Quitar el comentario de bloque cuando se haya codificado la clase Monomio y los operadores externos de dicha clase" << std::endl << std::endl;
 
 
 

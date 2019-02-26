@@ -9,6 +9,8 @@
 #ifndef _FUNCIONESAUXILIARES_HPP_
 #define _FUNCIONESAUXILIARES_HPP_
 
+#include "Monomio.hpp"
+
 namespace ed
 {
 	/*!
@@ -17,11 +19,21 @@ namespace ed
 	*/
 	int menu();
 
-	// COMPLETAR LOS COMENTARIOS DE DOXYGEN
+	/*!
+			\brief Se comprueban todos metodos relacionados directamente con un monomio.
+			\param Ninguno
+			\pre Ninguna
+			\post Ninguna
+		*/
 	void testMonomio();
 
 
-	// COMPLETAR LOS COMENTARIOS DE DOXYGEN
+	/*!
+		\brief Se comprueban los metodos y/o operadores EXTERNOS a la clase Monomio
+		\param Ninguno
+		\pre Ninguna
+		\post Ninguna
+	*/
 	void operadoresExternosMonomios();
 
 } // Fin del espacio de nombre de la asignatura: ed

@@ -32,7 +32,7 @@ namespace ed
 	bool operator==(ed::Monomio const &m, double const &x)
 	{
 		bool aserto = false;
-		if(m.getGrado() == 0 && std::abs(m.getCoeficiente() - x) < COTA_ERROR)
+		if((m.getGrado() == 0) && (std::abs(m.getCoeficiente() - x) < COTA_ERROR))
 		{
 			aserto = true;
 		}
@@ -332,11 +332,12 @@ namespace ed
 		int grado;
 		stream >> x;
 		stream >> grado;
-		if( grado < 0 )
+		while( grado < 0 )
 		{
-			std::cout<<"Se debe introducir un grado mayor o igual a 0\n";
-			exit (-1);
-		}
+			std::cout<<"No se debe introducir un grado menor que 0\n";
+			std::cout<<"grado: ";
+			stream >> grado;
+}
 		m.setCoeficiente(x);
 		m.setGrado(grado);
    	// Se devuelve el flujo de entrada

@@ -7,7 +7,7 @@
 
 #ifndef _OperadoresExternosMonomios_HPP_
 #define _OperadoresExternosMonomios_HPP_
-#define COTA_ERROR 1.0e-6
+#define COTA_ERROR 1.0e-6 //!< Cota de error para la comparacion de numeros reales
 
 // Facilita la entrada y salida
 #include <iostream>
@@ -44,8 +44,8 @@ namespace ed
 	/*!
 	\fn					bool operator==(ed::Monomio const &m, double const &x)
 	\brief     Operador que comprueba que un monomio sea igual que un numero real
-	\attention Devuelve 'true' si 'x' es igual que el coeficiente de 'm'
 	\pre
+	\attention Devuelve 'true' si 'x' es igual que el coeficiente de 'm'
 	\post      El coeficiente del monomio es igual que x y su grado es 0
 */
 	bool operator==(ed::Monomio const &m, double const x);
@@ -186,13 +186,19 @@ namespace ed
 	/*!
 	\fn				 istream &operator>> (istream &stream, ed::Monomio &m)
 	\brief     Lee desde el flujo de entrada los atributos de un monomio separados por espacios
-	\attention Devuelve
+	\attention Devuelve un stream con dichos atributos
 	\pre
 	\post
 */
 	 istream &operator>>(istream &stream, ed::Monomio &m);
 
-	// COMPLETAR LOS COMENTARIOS DE DOXYGEN
+	 /*!
+ 	\fn				 ostream &operator<< (ostream &stream, ed::Monomio &m)
+ 	\brief     Escribe en el flujo de salida los atributos del monomio separados por espacios
+ 	\attention Devuelve un stream con dichos atributos
+ 	\pre
+ 	\post
+ */
 	 ostream &operator<<(ostream &stream, ed::Monomio const &m);
 
 }  // Fin de namespace ed.
