@@ -33,7 +33,7 @@ ed::Monomio & ed::Monomio::operator=(double const &x)
 
 	#ifndef NDEBUG
 	assert(std::abs(this->getCoeficiente() - x) < COTA_ERROR);
-	assert(std::abs(this->getGrado() - 0) < COTA_ERROR);
+	assert(this->getGrado() == 0);
 	#endif //NDEBUG
 
 	// Se devuelve el objeto actual

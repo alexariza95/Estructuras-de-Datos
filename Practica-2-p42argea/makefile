@@ -4,13 +4,17 @@ NAME=principal
 OBJECTS = $(NAME).o \
 		funcionesAuxiliares.o \
 		operadoresExternosMonomios.o \
-		Monomio.o
+		Monomio.o \
+		operadoresExternosPolinomios.o \
+		Polinomio.o
 
 #
 CPPFLAGS = -c -g -Wall -ansi -O2
 
 INCLUDES = funcionesAuxiliares.hpp \
 			macros.hpp  \
+			operadoresExternosPolinomios.hpp \
+			Polinomio.hpp \
 			operadoresExternosMonomios.hpp \
 			Monomio.hpp
 
@@ -21,11 +25,11 @@ INCLUDES = funcionesAuxiliares.hpp \
 # $<: primera dependencia
 #
 
-all: $(NAME).exe
+objetivo: $(NAME).exe
 
 #Opciones para NO depurar los asertos
 ndebug: CPPFLAGS += -DNDEBUG 
-ndebug: all
+ndebug: objetivo
 
 # Primer objetivo 
 $(NAME).exe: $(OBJECTS)
@@ -51,6 +55,16 @@ operadoresExternosMonomios.o: operadoresExternosMonomios.cpp operadoresExternosM
 			@echo "Compilando " $<
 			@g++ $(CPPFLAGS) $<
 
+Polinomio.o: Polinomio.cpp Polinomio.hpp Monomio.hpp 
+			@echo "Compilando " $<
+			@g++ $(CPPFLAGS) $<
+
+#
+operadoresExternosPolinomios.o: operadoresExternosPolinomios.cpp operadoresExternosPolinomios.hpp Polinomio.hpp Monomio.hpp 
+			@echo "Compilando " $<
+			@g++ $(CPPFLAGS) $<
+
+#
 
 # Generación de la documentación
 doc: Doxyfile 

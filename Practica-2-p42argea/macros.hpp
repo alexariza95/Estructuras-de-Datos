@@ -1,8 +1,8 @@
 /*!
   \file   macros.hpp
   \brief  Macros para la pantalla
-  \author Alejandro Ariza
-  \date   25-02-19
+  \author 
+  \date   
   \note  http://isthe.com/chongo/tech/comp/ansi_escapes.html
 */
 
@@ -101,3 +101,4 @@
 
 
 #endif  // _MACROS_HPP_
+

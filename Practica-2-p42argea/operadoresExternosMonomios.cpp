@@ -7,6 +7,7 @@
 //  Ficheros de cabecera
 #include <iostream>
 #include <cassert>
+#include <cstdlib>
 #include "operadoresExternosMonomios.hpp"
 
 //  Se incluyen los operadores sobrecargados dentro del espacio de nombres ed
@@ -154,7 +155,7 @@ namespace ed
 		nuevo->setCoeficiente(coef);
 
 		#ifndef NDEBUG
-		assert(nuevo->getGrado() == m1.getGrado() && nuevo->getGrado() == m2.getGrado());
+		assert(nuevo->getGrado() == m1.getGrado());
 		assert(std::abs(nuevo->getCoeficiente() - (m1.getCoeficiente() + m2.getCoeficiente())) < COTA_ERROR);
 		#endif //NDEBUG
 
@@ -337,12 +338,11 @@ namespace ed
 		int grado;
 		stream >> x;
 		stream >> grado;
-		while( grado < 0 )
+		if( grado < 0 )
 		{
 			std::cout<<"No se debe introducir un grado menor que 0\n";
-			std::cout<<"grado: ";
-			stream >> grado;
-}
+			exit(-1);
+		}
 		m.setCoeficiente(x);
 		m.setGrado(grado);
    	// Se devuelve el flujo de entrada
