@@ -16,7 +16,7 @@
 #include <cmath>
 
 #include "PolinomioInterfaz.hpp"
-#include "Monomio.hpp"
+#include "operadoresExternosMonomios.hpp"
 
 
 // Se incluye la clase Polinomio dentro del espacio de nombre de la asigantura: ed
@@ -34,7 +34,7 @@ class Polinomio: public ed::PolinomioInterfaz
      inline bool isOrdered()
      {
      	bool aserto = true;
-     	for(int i = 0; i<this->vector.size() - 1; i++)
+     	for(int i = 0; i < this->getNumeroMonomios() - 1; i++)
      	{
      		if(this->vector[i].getGrado() < this->vector[i + 1].getGrado())
         {
@@ -62,11 +62,12 @@ class Polinomio: public ed::PolinomioInterfaz
   inline Polinomio(const Polinomio &p)
     {
       this->vector = p.vector;
-
-      for(int i = 0; i<this.getNumeroMonomios(); i++)
-      {
-        assert(this->vecto)
-      }
+      #ifndef NDEBUG
+        for(int i = 0; i<this->getNumeroMonomios(); i++)
+        {
+          assert(this->vector[i] == p.vector[i]);
+        }
+      #endif
     }
   //! \name Observadores: funciones de consulta de la clase Polinomio
 
@@ -87,6 +88,44 @@ class Polinomio: public ed::PolinomioInterfaz
     assert(this->isOrdered() == true);
     #endif
     return this->vector[0].getGrado();
+  }
+
+  inline int getNumeroMonomios()
+  {
+    return this->vector.size();
+  }
+
+  inline bool existeMonomio(int n)
+  {
+    #ifndef NDEBUG
+    assert(this->esNulo() == true);
+    #endif
+
+    bool aserto = false;
+    for(int i=0; i<this->getNumeroMonomios(); i++)
+    {
+      if(this->getMonomio(n) == vector[i])
+      {
+        aserto = true;
+      }
+    }
+    return aserto;
+  }
+
+  inline ed::Monomio getMonomio(int n)
+  {
+    #ifndef NDEBUG
+    assert(this->esNulo() == true);
+    #endif
+
+    for(int i=0; i<this->getNumeroMonomios(); i++)
+    {
+      if(this->vector[i].getGrado() == n)
+      {
+        return vector[i];
+      }
+    }
+    return 0;
   }
 
 	//! \name Funciones de modificación de la clase Polinomio

@@ -18,7 +18,9 @@
 
 ed::Polinomio & ed::Polinomio::operator=(ed::Polinomio const &p)
 {
-	// COMPLETAR
+	#ifndef NDEBUG
+		assert(this->);
+	#endif
 
 	// Se devuelve el objeto actual
 	return *this;
