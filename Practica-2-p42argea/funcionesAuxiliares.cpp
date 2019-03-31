@@ -62,13 +62,6 @@ int ed::menu()
 ///////////////////////////////////////////////////////////////////////////
 void ed::testPolinomio()
 {
-  // QUITAR ESTAS SENTENCIAS Y EL COMENTARIO DE BLOQUE
-  std::cout << BIGREEN;
-  std::cout << "testPolinomio()" << std::endl;
-  std::cout << RESET;
-  std::cout << "Quitar el comentario de bloque cuando se haya codificado la clase Polinomio " << std::endl << std::endl;
-
-  /*
 	double x;
 
 	ed::Monomio m;
@@ -467,7 +460,7 @@ void ed::testPolinomio()
 	p3.escribirPolinomio();
 	std::cout << std::endl;
 	std::cout<< "p3(" << x << ") = " << p3.calcularValor(x) << std::endl << std::endl;
-*/
+
 
 	// Fin
 	return;
@@ -480,13 +473,6 @@ void ed::testPolinomio()
 
 void ed::operadoresExternosPolinomios()
 {
-  // QUITAR ESTAS SENTENCIAS Y EL COMENTARIO DE BLOQUE
-  std::cout << BIGREEN;
-  std::cout << "operadoresExternosPolinomios()" << std::endl;
-  std::cout << RESET;
-  std::cout << "Quitar el comentario de bloque cuando se haya codificado la clase Polinomio y los operadores externos de dicha clase" << std::endl << std::endl;
-
-/*
 	double x;
 
 	// Constructor por defecto
@@ -814,6 +800,6 @@ void ed::operadoresExternosPolinomios()
 
 
 	std::cout << std::endl;
-*/
+
 	return;
 }

@@ -22,7 +22,7 @@ class PolinomioInterfaz
 
 	// COMPLETAR LOS COMENTARIOS DE DOXYGEN
   //Descomentar
-	//virtual bool esNulo() const = 0;
+//	virtual bool esNulo() const = 0;
 
   // COMPLETAR LOS COMENTARIOS DE DOXYGEN
   //Descomentar
@@ -35,12 +35,12 @@ class PolinomioInterfaz
 
   // COMPLETAR LOS COMENTARIOS DE DOXYGEN
   //Descomentar
-	//virtual bool existeMonomio(int n)const = 0;
+//	virtual bool existeMonomio(int n)const = 0;
 
 
   // COMPLETAR LOS COMENTARIOS DE DOXYGEN
   //Descomentar
-	//virtual ed::Monomio & getMonomio(int n) = 0;
+  //virtual ed::Monomio & getMonomio(int n) = 0;
 
 
 

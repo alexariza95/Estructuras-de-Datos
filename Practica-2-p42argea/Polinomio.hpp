@@ -30,48 +30,34 @@ class Polinomio: public ed::PolinomioInterfaz
    private:
      std::vector<ed::Monomio> vector;
 
-     //funcion que comprueba que el polinomio esta ordenado
-     inline bool isOrdered()
-     {
-     	bool aserto = true;
-     	for(int i = 0; i < this->getNumeroMonomios() - 1; i++)
-     	{
-     		if(this->vector[i].getGrado() < this->vector[i + 1].getGrado())
-        {
-          aserto = false;
-        }
-     	}
-      return aserto;
-     }
    //! \name Funciones o métodos públicos de la clase Polinomio
    public:
 
 	//! \name Constructores de la clase Polinomio
 
   inline Polinomio()
-  {
-    ed::Monomio *nuevo = new ed::Monomio();
+   {
+     this->vector.clear();
+     Monomio m;
+     this->vector.push_back(m);
+     #ifndef NDEBUG
+       assert( this->esNulo() == true );
+     #endif
+}
 
-    this->vector.push_back(*nuevo);
-    #ifndef NDEBUG
-    assert(this->esNulo() == true);
-    #endif
-  }
-
-
-  inline Polinomio(const Polinomio &p)
+inline Polinomio(const Polinomio &p)
+{
+  this->vector = p.vector;
+  #ifndef NDEBUG
+    for(int i = 0; i < this->getNumeroMonomios(); i++)
     {
-      this->vector = p.vector;
-      #ifndef NDEBUG
-        for(int i = 0; i<this->getNumeroMonomios(); i++)
-        {
-          assert(this->vector[i] == p.vector[i]);
-        }
-      #endif
+      assert( (this->vector[i] == p.vector[i]) );
     }
+  #endif
+}
   //! \name Observadores: funciones de consulta de la clase Polinomio
 
-	inline bool esNulo()
+	inline bool esNulo()const
   {
     bool aserto = false;
 
@@ -82,7 +68,7 @@ class Polinomio: public ed::PolinomioInterfaz
     return aserto;
   }
 
-  inline int getGrado()
+  inline int getGrado()const
   {
     #ifndef NDEBUG
     assert(this->isOrdered() == true);
@@ -90,15 +76,15 @@ class Polinomio: public ed::PolinomioInterfaz
     return this->vector[0].getGrado();
   }
 
-  inline int getNumeroMonomios()
+  inline int getNumeroMonomios()const
   {
     return this->vector.size();
   }
 
-  inline bool existeMonomio(int n)
+  inline bool existeMonomio(int n) const
   {
     #ifndef NDEBUG
-    assert(this->esNulo() == true);
+    assert(this->esNulo() == false);
     #endif
 
     bool aserto = false;
@@ -112,27 +98,106 @@ class Polinomio: public ed::PolinomioInterfaz
     return aserto;
   }
 
-  inline ed::Monomio getMonomio(int n)
+  inline ed::Monomio & getMonomio(int n)const
   {
+    ed::Monomio *m = new ed::Monomio();
     #ifndef NDEBUG
-    assert(this->esNulo() == true);
+    assert(this->esNulo() == false);
     #endif
 
     for(int i=0; i<this->getNumeroMonomios(); i++)
     {
       if(this->vector[i].getGrado() == n)
       {
-        return vector[i];
+        (*m) = vector[i];
       }
     }
-    return 0;
+    return (*m);
   }
 
 	//! \name Funciones de modificación de la clase Polinomio
 
-	// COMPLETAR
+  inline Monomio obtieneMonomio(int n) const
+  {
+    #ifndef NDEBUG
+      assert( this->esNulo() == false );
+    #endif
+
+    return this->vector[n];
+}
 
 
+
+  inline void addMonomio(Monomio const &m)
+  {
+    this->vector.push_back(m);
+    #ifndef NDEBUG
+      assert( this->vector.back() == m );
+    #endif
+  }
+
+  inline void remove(int n)
+  {
+    #ifndef NDEBUG
+      assert( this->getNumeroMonomios() >= n );
+    #endif
+    int old = this->getNumeroMonomios();
+    this->vector.erase(this->vector.begin()+n);
+    #ifndef NDEBUG
+      assert( this->getNumeroMonomios() == (old-1) );
+    #endif
+}
+
+//Funcion que comprueba si el polinomio esta ordenado
+inline bool isOrdered()const
+{
+ bool aserto = true;
+ for(int i = 0; i < this->getNumeroMonomios() - 1; i++)
+ {
+   if(this->vector[i].getGrado() < this->vector[i + 1].getGrado())
+   {
+     aserto = false;
+   }
+ }
+ return aserto;
+}
+
+
+//Funcion ordena y agrupa polinomio
+inline void ordenaPolinomio()
+{
+  int pasos;
+  Monomio temp;
+
+  //Ordenar el polinomio
+  for(int cont = this->getNumeroMonomios()/2; cont != 0; cont /= 2) {
+    for(pasos = 1; pasos != 0;) {
+      pasos = 0;
+      for(int i = cont; i < this->getNumeroMonomios(); i ++) {
+        if(this->vector[i - cont].getGrado() < this->vector[i].getGrado()) {
+          temp = this->vector[i];
+          this->vector[i] = this->vector[i - cont];
+          this->vector[i - cont] = temp;
+          pasos ++;
+        }
+      }
+    }
+  }
+
+  //bucle que suma aquellos monomios con mismo grado
+  for( int i = 0; i < this->getNumeroMonomios() -1; i++)
+  {
+    if(this->vector[i].getGrado() == this->vector[i+1].getGrado())
+    {
+      this->vector[i] += this->vector[i+1];
+      this->vector.erase(this->vector.begin()+i+1);
+    }
+  }
+
+  #ifndef NDEBUG
+    assert(this->isOrdered() == true);
+  #endif
+} //ordenarPolinomio
  	////////////////////////////////////////////////////////////////
 
    //! \name Operadores de la clase Polinomio
@@ -149,8 +214,21 @@ class Polinomio: public ed::PolinomioInterfaz
   // Operadores aritméticos y asignación
 
 		// COMPLETAR LOS COMENTARIOS DE DOXYGEN
-	Polinomio & operator+=(Polinomio const &p);
+    Polinomio & operator+=(Polinomio const &p);
+    Polinomio & operator+=(Monomio const &m);
+    Polinomio & operator+=(double const &x);
 
+    Polinomio & operator-=(Polinomio const &p);
+    Polinomio & operator-=(Monomio const &m);
+    Polinomio & operator-=(double const &x);
+
+    Polinomio & operator*=(Polinomio const &p);
+    Polinomio & operator*=(Monomio const &m);
+    Polinomio & operator*=(double const &x);
+
+    Polinomio & operator/=(Polinomio const &p);
+    Polinomio & operator/=(Monomio const &m);
+  Polinomio & operator/=(double const &x);
 
 	// COMPLETAR EL RESTO DE OPERADORES
 
@@ -159,13 +237,13 @@ class Polinomio: public ed::PolinomioInterfaz
 
 	//! \name Funciones lectura y escritura de la clase Polinomio
 
-	// COMPLETAR
-
+  void leerPolinomio();
+  void escribirPolinomio();
 
 	///////////////////////////////////////////////////////////////////////
 
 	//! \name Funciones auxiliares de la clase Polinomio
-
+  double calcularValor(double const &x);
 
 
 }; // Fin de la definición de la clase Polinomio
