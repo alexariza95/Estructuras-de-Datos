@@ -14,23 +14,17 @@
 
 ed::Polinomio & ed::Polinomio::operator=(ed::Polinomio const &p)
 {
-	#ifndef NDEBUG
-		for( int i = 0; i<this->getNumeroMonomios(); i++ )
-		{
-			assert(this->vector[i] != p.vector[i]);
-		}
-	#endif
 
 
 	 std::copy ( p.vector.begin(), p.vector.end(), std::back_inserter(this->vector) );
 
 
-	/* #ifndef NDEBUG
+	 #ifndef NDEBUG
 	 for( int i = 0; i<this->getNumeroMonomios(); i++ )
 	 {
  	 	assert(this->vector[i] == p.vector[i]);
 	 }
-	 #endif*/
+	 #endif
 	// Se devuelve el objeto actual
 	return *this;
 }
