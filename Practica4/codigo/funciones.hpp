@@ -28,9 +28,11 @@ int menu()
 }
 
 template <class G_Nodo, class G_Lado>
-bool cargarGrafo(Grafo<G_Nodo, G_Lado> * &g)
+bool cargarGrafo(Grafo<G_Nodo, G_Lado> *&g)
 {
   string ficheroMatriz, ficheroEtiquetas;
+  char buffer[1024];
+  std::string string_buffer;
 
   cout << "Fichero de la matriz de conexion: ";
   cin >> ficheroMatriz;
@@ -38,8 +40,7 @@ bool cargarGrafo(Grafo<G_Nodo, G_Lado> * &g)
   cout << "Fichero de las etiquetas: ";
   cin >> ficheroEtiquetas;
 
-  // TODO
-
+  return true;
 }
 
 template <class G_Nodo, class G_Lado>
